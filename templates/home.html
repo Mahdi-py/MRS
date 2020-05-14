@@ -1,4 +1,17 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1> Hello </h1>
+
+    <div class="container content-section">
+        <div class="row">
+            {% for movie in movies %}
+            <div class="card text-center col-lg-6 col-12 " style="width: 18rem;">
+                <img class="card-img-top img-fluid mt-2" src="../static/inception.jpg" alt="{{movie.title}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{movie.title}}</h5>
+                    <a href="#" class="btn btn-outline-dark">More</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

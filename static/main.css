@@ -45,10 +45,10 @@ a.article-title:hover {
   white-space: pre-line;
 }
 
-.article-img {
-  height: 65px;
-  width: 65px;
-  margin-right: 16px;
+.poster-img {
+  width: 284px;
+  height:420px;
+  margin-right: 5px
 }
 
 .article-metadata {

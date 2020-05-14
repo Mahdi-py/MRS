@@ -4,11 +4,27 @@ from forms import RegistrationForm, LoginForm
 
 app = Flask(__name__)
 
+movie = [
+    {
+        'title':'Inception',
+        'image':'..static/inception.jpg'
+    },
+    {
+        'title':'Inception',
+        'image':'..static/inception.jpg'
+    },
+    {
+        'title':'Inception',
+        'image':'..static/inception.jpg'
+    }
+]
+
 
 @app.route('/')
 @app.route('/index')
 def home():
-    return render_template('home.html', title='Home')
+
+    return render_template('home.html', title='Home', movies=movie)
 
 
 @app.route('/about')
