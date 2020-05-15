@@ -2,8 +2,18 @@ from flask import Flask, request
 from flask import render_template, url_for
 from forms import RegistrationForm, LoginForm
 from utils import getMovie, Search
+from flask_sqlalchemy import SQLAlchemy
+
+
+
+
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root: @localhost/mrs"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
+
+
+db = SQLAlchemy(app)
 
 movie = [
     {
