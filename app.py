@@ -1,6 +1,7 @@
-from flask import Flask
+from flask import Flask, request
 from flask import render_template, url_for
 from forms import RegistrationForm, LoginForm
+from utils import getMovie, Search
 
 app = Flask(__name__)
 
@@ -42,6 +43,17 @@ def register():
 def login():
     form = LoginForm()
     return render_template('login.html', title='Login', form=form)
+
+@app.route('/movies/<string:id>')
+def movie_page(id):
+    return render_template('movie_page.html')
+
+@app.route('/search', methods=['POST','GET'])
+def search():
+    if request.method=='POST':
+        name = request.form['search']
+        movies = Search(name)['titles']
+    return render_template('search.html', movies=movies)
 
 
 if __name__ == '__main__':
