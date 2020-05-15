@@ -1,4 +1,4 @@
-from app import db
+from Flask_MRS import db
 from datetime import datetime
 
 
