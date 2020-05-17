@@ -1,17 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
 
-    <div class="container content-section">
-        <div class="row">
-            {% for movie in movies %}
-            <div class="card text-center col-lg-6 col-12 " style="width: 18rem;">
-                <img class="card-img-top img-fluid mt-2" src="{{movie.image}}" alt="{{movie.title}}">
-                <div class="card-body">
-                    <h5 class="card-title">{{movie.title}}</h5>
-                    <a href="{{url_for('movie_page', id=movie.id )}}" class="btn btn-outline-dark">More</a>
-                </div>
+    {% if error %}
+        <div class="text-muted"> Sorry, nothing found </div>
+    {% else %}
+        <div class="container">
+            <div class="row">
+                {% for movie in movies.titles %}
+                    <div class="card text-center col-lg-6 col-12 " style="width: 18rem;">
+                        <img class="card-img-top img-fluid mt-2" src="{{movie.image}}" alt="{{movie.title}}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{movie.title}}</h5>
+                            <a href="{{url_for('movie_page', id=movie.id )}}" class="btn btn-outline-dark">More</a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
-    </div>
+    {% endif %}
 {% endblock %}
