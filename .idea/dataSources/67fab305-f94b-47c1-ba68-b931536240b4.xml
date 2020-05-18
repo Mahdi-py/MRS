@@ -1196,7 +1196,7 @@ movie_id</ColNames>
     </column>
     <column id="300" parent="284" name="MRSRating">
       <Position>2</Position>
-      <DataType>decimal(10)|0s</DataType>
+      <DataType>float|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="301" parent="284" name="PRIMARY">
@@ -1218,7 +1218,7 @@ movie_id</ColNames>
     </column>
     <column id="304" parent="285" name="rating">
       <Position>3</Position>
-      <DataType>decimal(10)|0s</DataType>
+      <DataType>float|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>

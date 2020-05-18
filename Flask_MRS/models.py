@@ -29,7 +29,7 @@ class User(db.Model, UserMixin):
 
 class Movie(db.Model):
     id = db.Column(db.String(30), primary_key=True)
-    MRSRating = db.Column(db.DECIMAL(10), nullable=True, unique=False)
+    MRSRating = db.Column(db.Float, nullable=True, unique=False)
 
     parant = db.relationship('Ratings', backref='movie', lazy=True )
 
@@ -40,7 +40,7 @@ class Movie(db.Model):
 class Ratings(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     movie_id = db.Column(db.String(30), db.ForeignKey('movie.id'), primary_key=True)
-    rating = db.Column(db.DECIMAL, nullable=False)
+    rating = db.Column(db.Float, nullable=False)
 
     child = db.relationship('Movie', backref='ratings', lazy=True)
     parent = db.relationship('User', backref='ratings', lazy=True)

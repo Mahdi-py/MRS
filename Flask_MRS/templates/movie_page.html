@@ -3,20 +3,64 @@
 
     <div class="container content-section">
         <div class="row">
-            <img src="../static/inception.jpg" class="col-lg-6 col-12 rounded float-left" alt="inception">
+            <img src="{{movie.poster}}" class="col-lg-6 col-12 rounded float-left" alt="poster image">
             <div class="col-lg-6 col-12">
-                <h1 ><strong>Name</strong> , <small class="text-muted"> year </small></h1>
+                <h2><strong>{{ movie.title }}</strong> , <small class="text-muted"> {{movie.year}} </small></h2>
                 <hr/>
                 <h3><strong>Ratings</strong></h3>
-                <h6 > MRS: 9 </h6>
-                <h6><mark>IMDB</mark>: 8.8</h6>
-                <h6>Yours: 10 </h6>
+                {% if MRSRating %}
+                    <h6 > MRS: {{ MRSRating }} </h6>
+                {% endif %}
+                <h6><mark>IMDb</mark>: {{movie.rating}}</h6>
+                {% if current_user.is_authenticated and Rating %}
+                    <label >Yours: {{Rating}} </label>
+                {% endif %}
                 <hr/>
                 <h3><strong>Plot</strong></h3>
-                <p>A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.</p>
+                <p>{{movie.plot}}</p>
                 <hr>
-                <a class="btn btn-outline-primary" href="#">Rate</a>
-                <a class="btn btn-outline-secondary" href="#">Add to list</a>
+                {% if current_user.is_authenticated %}
+                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter">Rate</button>
+                    <a class="btn btn-outline-secondary" href="#">Add to list</a>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">{{ movie.title }} Rating</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form action="" method="post">
+                              <div class="form-group">
+                                {{ form.rate.label(class= "form-control-label") }}
+                                {% if form.rate.errors %}
+                                    {{ form.rate(class= "form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.rate.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.rate(class= "form-control form-control-lg") }}
+                                {% endif %}
+                              </div>
+                              <div class="form-group">
+                                {{ form.submit(class="btn btn-outline-dark") }}
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

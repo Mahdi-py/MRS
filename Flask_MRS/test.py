@@ -1,6 +1,7 @@
 from Flask_MRS import db
 from Flask_MRS.models import *
-
+import random
+from Flask_MRS.utils import UpdateMRSRating
 #user1 = Movie(id='k23421',MRSRating=8.9)
 #db.session.add(user1)
 #user1 = Movie(id='Inception',MRSRating=8.9)
@@ -23,17 +24,27 @@ from Flask_MRS.models import *
 #m = User.query.all()
 #print(m)
 
-user = User.query.get(1)
-m = Movie.query.get('Inception')
-rating = m.ratings[0]
-print(rating.movie_id)
-print(rating.rating)
-print(rating.user_id)
-# THe same for users you can access it by the user
-r= Ratings.query.first()
-print(r.user)
+#users = User.query.all()
+#for user in users:
+#    if user.id != 1:
+#        rating = Ratings(user_id=user.id,movie_id='Inception', rating=random.randint(0,10))
+#        db.session.add(rating)
+print(UpdateMRSRating('Inception'))
+#db.create_all()
+#UpdateMRSRating('Inception')
 
-db.session.commit()
+#rating = m.ratings[0]
+#print(rating.movie_id)
+#print(rating.rating)
+#print(rating.user_id)
+## THe same for users you can access it by the user
+#r= Ratings.query.first()
+#print(r.user)
+
+#print(Ratings.query.filter_by(movie_id='i', user_id=user.id).first())
+#if not Movie.query.filter_by(id='k23421').first():
+#    print('fuck yeah')
+#db.session.commit()
 
 
 

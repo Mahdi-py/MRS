@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from flask_login import current_user
 from Flask_MRS.models import *
 
@@ -31,3 +31,9 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Sign Up')
+
+class RatingForm(FlaskForm):
+    rate = StringField('Rating', validators=[DataRequired(), Length(min=1,max=2)])
+    submit = SubmitField('Submit')
+    #def validate_rate(self,rate):
+    #    rating = float(rate.data)
