@@ -12,54 +12,39 @@
                     <h6 > MRS: {{ MRSRating }} </h6>
                 {% endif %}
                 <h6><mark>IMDb</mark>: {{movie.rating}}</h6>
-                {% if current_user.is_authenticated and Rating %}
-                    <label >Yours: {{Rating}} </label>
-                {% endif %}
+                {% if current_user.is_authenticated %}
+                    <form class="form-inline" action="{{url_for('movie_page', id=movie.id )}}" method="post">
+                        {{ form.hidden_tag() }} <!--For Protection-->
+                        {{ form.rate.label(class="form-control-label mr-2") }}
+                        {% if form.rate.errors %}
+                            {% if Rating %}
+                                {{ form.rate(class= "form-control form-control-sm col-2 is-invalid", value=Rating) }}
+                            {% else %}
+                                {{ form.rate(class= "form-control form-control-sm col-2 is-invalid", placeholder=Rating) }}
+                            {% endif %}
+                            {{ form.submit(class="btn btn-outline-dark btn-sm ml-2") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.rate.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {% if Rating %}
+                                {{ form.rate(class= "form-control form-control-sm col-2", value=Rating) }}
+                            {% else %}
+                                {{ form.rate(class= "form-control form-control-sm col-2", placeholder=Rating) }}
+                            {% endif %}
+                        {{ form.submit(class="btn btn-outline-dark btn-sm ml-2") }}
+                        {% endif %}
+                        <!--{{ form.csrf_token }}--> <!--For Protection;; it can take the place of form.hidden_tag() -->
+                    </form>
+                    {% endif %}
                 <hr/>
                 <h3><strong>Plot</strong></h3>
                 <p>{{movie.plot}}</p>
                 <hr>
                 {% if current_user.is_authenticated %}
-                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter">Rate</button>
                     <a class="btn btn-outline-secondary" href="#">Add to list</a>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">{{ movie.title }} Rating</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <form action="" method="post">
-                              <div class="form-group">
-                                {{ form.rate.label(class= "form-control-label") }}
-                                {% if form.rate.errors %}
-                                    {{ form.rate(class= "form-control form-control-lg is-invalid") }}
-                                    <div class="invalid-feedback">
-                                        {% for error in form.rate.errors %}
-                                        <span>{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                {% else %}
-                                    {{ form.rate(class= "form-control form-control-lg") }}
-                                {% endif %}
-                              </div>
-                              <div class="form-group">
-                                {{ form.submit(class="btn btn-outline-dark") }}
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                 {% endif %}
             </div>
         </div>

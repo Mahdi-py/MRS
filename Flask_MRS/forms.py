@@ -4,6 +4,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from flask_login import current_user
 from Flask_MRS.models import *
+from Flask_MRS.utils import isfloat
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username',
@@ -33,7 +34,12 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign Up')
 
 class RatingForm(FlaskForm):
-    rate = StringField('Rating', validators=[DataRequired(), Length(min=1,max=2)])
-    submit = SubmitField('Submit')
-    #def validate_rate(self,rate):
-    #    rating = float(rate.data)
+    rate = StringField('Yours', validators=[DataRequired()])
+    submit = SubmitField('Rate')
+    def validate_rate(self,rate):
+        if rate.data == "None":
+            raise ValidationError('You haven\'t rate it yet')
+        elif not isfloat(rate.data):
+            raise ValidationError('The entered data is not a number')
+        elif float(rate.data) < 0 or float(rate.data) > 10:
+            raise ValidationError('The number must be between 0 and 10')

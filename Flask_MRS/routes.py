@@ -1,6 +1,7 @@
 from flask import render_template, url_for, request, flash, redirect
 from Flask_MRS.forms import RegistrationForm, LoginForm, RatingForm
-from Flask_MRS.utils import getMovie, Search, UpdateMRSRating
+from Flask_MRS.models import Ratings
+from Flask_MRS.utils import getMovie, Search, UpdateMRSRating, MovieRatings
 from Flask_MRS import app, db, bcrypt
 from Flask_MRS.models import *
 from flask_login import login_user, logout_user, current_user, login_required
@@ -75,8 +76,7 @@ def logout():
 @app.route('/movies/<string:id>', methods=['GET', 'POST'])
 def movie_page(id):
     movie = getMovie(id)
-    Rating = None
-    MRSRating = None
+    rtings = MovieRatings(UserRating=None, MRSRating=None, IMDbRating=movie['rating'])
     form = RatingForm()
     if not Movie.query.filter_by(id=id).first():
         new_movie = Movie(id=id)
@@ -84,17 +84,22 @@ def movie_page(id):
         db.session.commit()
     if current_user.is_authenticated:
         user = User.query.get(int(current_user.id))
-        Rating = Ratings.query.filter_by(movie_id=id, user_id=user.id).first()
-        MRSRating = UpdateMRSRating(id)
+        rtings.UserRating = Ratings.query.filter_by(movie_id=id, user_id=user.id).first().rating
+        rtings.MRSRating = UpdateMRSRating(id)
     if form.validate_on_submit():
-        print(form.rate.data)
-    return render_template('movie_page.html', movie=movie, Rating=9.8, MRSRating=8.4, form=form)
-
-
-@app.route('/rate/<string:id>')
-@login_required
-def rate(id):
-    return render_template('rate.html')
+        Rating = form.rate.data
+        rating = Ratings.query.filter_by(user_id=current_user.id, movie_id=id).first()
+        if not rating:
+            new_rating = Ratings(user_id=current_user.id, movie_id=id, rating=round(float(Rating), 2))
+            db.session.add(new_rating)
+            db.session.commit()
+            rtings.UserRating = new_rating.rating
+        else:
+            rating.rating = round(float(Rating), 2)
+            db.session.commit()
+            rtings.UserRating = round(float(Rating), 2)
+    return render_template('movie_page.html', movie=movie, Rating=rtings.UserRating,
+                           MRSRating=rtings.MRSRating, form=form)
 
 
 @app.route('/search', methods=['POST', 'GET'])

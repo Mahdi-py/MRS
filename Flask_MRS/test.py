@@ -24,15 +24,16 @@ from Flask_MRS.utils import UpdateMRSRating
 #m = User.query.all()
 #print(m)
 
-#users = User.query.all()
-#for user in users:
-#    if user.id != 1:
-#        rating = Ratings(user_id=user.id,movie_id='Inception', rating=random.randint(0,10))
-#        db.session.add(rating)
-print(UpdateMRSRating('Inception'))
+users = User.query.all()
+for user in users:
+    rating = Ratings(user_id=user.id,movie_id='Inception', rating=random.randint(0,10))
+    db.session.add(rating)
+    print(rating)
+db.session.commit()
+#print(UpdateMRSRating('Inception'))
 #db.create_all()
 #UpdateMRSRating('Inception')
-
+#rating = Ratings(user_id=user.id,movie_id='Inception', rating=random.randint(0,10))
 #rating = m.ratings[0]
 #print(rating.movie_id)
 #print(rating.rating)
