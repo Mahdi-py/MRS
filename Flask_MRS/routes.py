@@ -84,7 +84,9 @@ def movie_page(id):
         db.session.commit()
     if current_user.is_authenticated:
         user = User.query.get(int(current_user.id))
-        rtings.UserRating = Ratings.query.filter_by(movie_id=id, user_id=user.id).first().rating
+        rtings.UserRating = Ratings.query.filter_by(movie_id=id, user_id=user.id).first()
+        if rtings.UserRating is not None:
+            rtings.UserRating=rtings.UserRating.rating
         rtings.MRSRating = UpdateMRSRating(id)
     if form.validate_on_submit():
         Rating = form.rate.data
@@ -100,6 +102,13 @@ def movie_page(id):
             rtings.UserRating = round(float(Rating), 2)
     return render_template('movie_page.html', movie=movie, Rating=rtings.UserRating,
                            MRSRating=rtings.MRSRating, form=form)
+
+
+@app.route('/Lists')
+@login_required
+def list():
+    return render_template('list.html')
+
 
 
 @app.route('/search', methods=['POST', 'GET'])

@@ -34,13 +34,6 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="mrs: schema" type="76f4a085:MysqlImplModel$Schema" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="mrs@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="mrs: schema" type="76f4a085:MysqlImplModel$Schema" />
-        <item name="ratings: table" type="285a2a93:MysqlImplModel$Table" />
-      </path>
     </expand>
     <select />
   </component>
@@ -187,7 +180,7 @@
       <workItem from="1589414237559" duration="14878000" />
       <workItem from="1589522736504" duration="1599000" />
       <workItem from="1589524384607" duration="116000" />
-      <workItem from="1589524547036" duration="64668000" />
+      <workItem from="1589524547036" duration="72117000" />
     </task>
     <servers />
   </component>
