@@ -34,6 +34,13 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="mrs: schema" type="76f4a085:MysqlImplModel$Schema" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="mrs@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="mrs: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="list: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
     </expand>
     <select />
   </component>
@@ -155,11 +162,6 @@
                 <item name="root:mrs@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
                 <item name="com.intellij.database.console.session.MessageBusSession@30e3db40" type="9fbbdea:ServiceModel$ServiceNode" />
               </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:mrs@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@391b2400" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
             </expand>
             <select />
           </treeState>
@@ -180,7 +182,7 @@
       <workItem from="1589414237559" duration="14878000" />
       <workItem from="1589522736504" duration="1599000" />
       <workItem from="1589524384607" duration="116000" />
-      <workItem from="1589524547036" duration="72117000" />
+      <workItem from="1589524547036" duration="75948000" />
     </task>
     <servers />
   </component>
@@ -200,22 +202,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1589527886679" />
-    <state width="1877" height="230" key="GridCell.Tab.0.bottom" timestamp="1589886671400">
+    <state width="1877" height="230" key="GridCell.Tab.0.bottom" timestamp="1589953443228">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="230" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589886671400" />
-    <state width="1877" height="230" key="GridCell.Tab.0.center" timestamp="1589886671400">
+    <state width="1877" height="230" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589953443228" />
+    <state width="1877" height="230" key="GridCell.Tab.0.center" timestamp="1589953443228">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="230" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589886671400" />
-    <state width="1877" height="230" key="GridCell.Tab.0.left" timestamp="1589886671400">
+    <state width="1877" height="230" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589953443228" />
+    <state width="1877" height="230" key="GridCell.Tab.0.left" timestamp="1589953443228">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="230" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589886671400" />
-    <state width="1877" height="230" key="GridCell.Tab.0.right" timestamp="1589886671400">
+    <state width="1877" height="230" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589953443228" />
+    <state width="1877" height="230" key="GridCell.Tab.0.right" timestamp="1589953443228">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="230" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589886671400" />
+    <state width="1877" height="230" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589953443228" />
     <state x="166" y="162" key="SettingsEditor" timestamp="1589414574272">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

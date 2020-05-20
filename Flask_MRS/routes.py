@@ -1,5 +1,5 @@
 from flask import render_template, url_for, request, flash, redirect
-from Flask_MRS.forms import RegistrationForm, LoginForm, RatingForm
+from Flask_MRS.forms import RegistrationForm, LoginForm, RatingForm, ListForm
 from Flask_MRS.models import Ratings
 from Flask_MRS.utils import getMovie, Search, UpdateMRSRating, MovieRatings
 from Flask_MRS import app, db, bcrypt
@@ -110,6 +110,11 @@ def list():
     return render_template('list.html')
 
 
+@app.route('/new_list')
+@login_required
+def new_list():
+    form = ListForm()
+    return render_template('new_list.html', form=form)
 
 @app.route('/search', methods=['POST', 'GET'])
 def search():

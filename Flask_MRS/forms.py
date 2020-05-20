@@ -43,3 +43,7 @@ class RatingForm(FlaskForm):
             raise ValidationError('The entered data is not a number')
         elif float(rate.data) < 0 or float(rate.data) > 10:
             raise ValidationError('The number must be between 0 and 10')
+
+class ListForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    submit = SubmitField('Create')
