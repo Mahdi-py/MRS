@@ -128,3 +128,8 @@ def search():
         except:
             _ = 'nothing'
     return render_template('search.html', movies=movies, error=error)
+
+
+@app.route('/particles')
+def particles():
+    return render_template('particles.html')

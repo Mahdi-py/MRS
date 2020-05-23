@@ -82,3 +82,14 @@ a.article-title:hover {
 .form-number{
   width: 25.5px !important;
 }
+#particles-js {
+}
+main {
+  position: absolute;
+  right: 15px;
+  left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+
+}

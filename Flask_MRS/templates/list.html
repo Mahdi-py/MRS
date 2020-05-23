@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class="content-section">
     <table class="table table-striped">
       <thead class="thead-dark">
         <tr>
@@ -26,6 +27,6 @@
     </table>
 
     <a class="btn btn-outline-dark md-btn" href="{{url_for('new_list')}}">Create New List</a>
-
+</div>
 
 {% endblock %}

@@ -46,4 +46,4 @@ class RatingForm(FlaskForm):
 
 class ListForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
-    submit = SubmitField('Create')
+    submit = SubmitField('Next')
