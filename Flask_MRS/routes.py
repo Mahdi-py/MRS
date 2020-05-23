@@ -110,10 +110,15 @@ def list():
     return render_template('list.html')
 
 
-@app.route('/new_list')
+@app.route('/new_list', methods=['POST', 'GET'])
 @login_required
 def new_list():
     form = ListForm()
+    if form.validate_on_submit():
+        list = List(name=form.name.data,user_id=current_user.id)
+        db.session.add(list)
+        db.session.commit()
+        return render_template('add_movies.html')
     return render_template('new_list.html', form=form)
 
 @app.route('/search', methods=['POST', 'GET'])
@@ -129,7 +134,7 @@ def search():
             _ = 'nothing'
     return render_template('search.html', movies=movies, error=error)
 
-
-@app.route('/particles')
+#delete it
+@app.route('/add_movies')
 def particles():
-    return render_template('particles.html')
+    return render_template('add_movies.html')

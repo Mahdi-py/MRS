@@ -6,6 +6,7 @@ from flask_login import current_user
 from Flask_MRS.models import *
 from Flask_MRS.utils import isfloat
 
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=20)])
@@ -47,3 +48,9 @@ class RatingForm(FlaskForm):
 class ListForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     submit = SubmitField('Next')
+    def validate_name(self,name):
+        list = List.query.filter_by(user_id=current_user.id, name=name.data).first()
+        print(list)
+        if list:
+            raise ValidationError('You have a list with the same name. Please change the name')
+

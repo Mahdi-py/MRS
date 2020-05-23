@@ -1,10 +1,43 @@
+{% extends "layout.html" %}
 {% block content %}
     <div class="content-section">
         <legend class="border-bottom mb-4">Append movies to the list</legend>
-        <form class="form-inline" name="search">
+        <div class="form-inline" name="search">
             <input type="text" name="name" class="form-control form-control-md" placeholder="Search">
             <button class="btn btn-outline-dark btn-md ml-2" name="btn">Search</button>
-        </form>
+        </div>
     </div>
+    <script>
 
+        var input = document.getElementsByName('name')[0]
+        var btn = document.getElementsByName('btn')[0]
+        btn.addEventListener('click', function () {
+            var m = getMovies(input.value);
+
+
+
+
+        })
+
+        function getMovies(name) {
+            fetch("https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/"+name, {
+	        "method": "GET",
+	        "headers": {
+	        	"x-rapidapi-host": "imdb-internet-movie-database-unofficial.p.rapidapi.com",
+	        	"x-rapidapi-key": "ae2f772566msh53a562e84ed2f81p1d96fajsne0717a4d8a5d"
+	        }
+            })
+            /*.then(function (res) {
+                return res.json()
+            })
+            .then(function (data) {
+                console.log(data.titles)
+            })*/
+            .then(res => res.json())
+            .then( data => {
+                console.log(data.titles)
+            })
+            .catch(err => {console.log('not found')})
+            }
+    </script>
 {% endblock %}
