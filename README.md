@@ -6,12 +6,13 @@
 
 # Features
 * Create Lists of movies
-* Rate movies
+* Rating movies
 * User friendly interface to manage the lists
 * Feedbacks about the movies
-* Searching in the movies 
+* Searching for the movies 
 
 #Technologies
+* Python
 * Flask
 * Jinja
 * Particles.js

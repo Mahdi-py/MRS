@@ -1,27 +1,11 @@
-{% extends "layout.html" %}
-{% block content %}
-    <div class="content-section">
-        <legend class="border-bottom mb-4">Append movies to the list</legend>
-        <div class="form-inline" name="search">
-            <input type="text" name="name"
-                   class="form-control form-control-md col-9" placeholder="Search">
-            <button class="btn btn-outline-dark btn-md ml-1 " name="btn">Search</button>
-        </div>
-        <div class="card mt-1 col-12" >
-            <ul class="list-group" id="list">
-                <li class="list-group-item"><img height="50" width="50" src="../static/inception.jpg" class="img-thumbnail mr-2">Inception <a href="#" class="btn btn-outline-dark  btn-sm float-center">Add</a> </li>
-                <li class="list-group-item"><img height="50" width="50" src="../static/inception.jpg" class="img-thumbnail mr-2">Darknight <a href="#" class="btn btn-outline-dark  btn-sm float-center">Add</a> </li>
-                <li class="list-group-item"><img height="50" width="50" src="../static/inception.jpg" class="img-thumbnail mr-2">Last of us <a href="#" class="btn btn-outline-dark btn-sm float-center">Add</a> </li>
-            </ul>
-        </div>
-    </div>
-    <!--<script src="../static/search.js"></script>-->
-    <script>
-        var list = document.getElementById('list')
+
+
+var list = document.getElementById('list')
 var input = document.getElementsByName('name')[0];
 var btn = document.getElementsByName('btn')[0];
 btn.addEventListener('click', function () {
     const value = input.value;
+    console.log(value);
     if (value && value.trim().length > 0 ){
         getMovies(value);
     } else {
@@ -40,16 +24,15 @@ function getMovies(name) {
     })
     .then(res => res.json())
     .then( data => {
-        if(data.message){
-        console.log('i am in the then');
-        setNoResults(); }
+        if(data.message)
+            setNoResults()
         else {
-            console.log(data.titles)
             addlist(data.titles)
         }
     })
+    .catch(err => { setNoResults(); })
 
-
+    
     }
 function addlist(group) {
     clearList();
@@ -57,15 +40,13 @@ function addlist(group) {
         const item=document.createElement('li');
         item.classList.add('list-group-item');
         const img = document.createElement('img');
-        img.className='img-thumbnail mr-2';
+        img.classList.add('img-thumbnail mr-2');
         img.src=movie.image;
-        img.height=50;
-        img.width=50;
         item.appendChild(img);
         const text= document.createTextNode(movie.title);
         item.appendChild(text);
         const btn = document.createElement('a');
-        btn.className='btn btn-outline-dark btn-sm float-right';
+        btn.classList.add('btn btn-outline-dark btn-sm float-center')
         const Add = document.createTextNode('Add');
         btn.appendChild(Add);
         item.appendChild(btn);
@@ -86,5 +67,4 @@ function setNoResults() {
         item.appendChild(text);
         list.appendChild(item);
 }
-    </script>
-{% endblock %}
+
