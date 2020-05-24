@@ -11,7 +11,7 @@
 * Feedbacks about the movies
 * Searching for the movies 
 
-#Technologies
+# Technologies
 * Python
 * Flask
 * Jinja
