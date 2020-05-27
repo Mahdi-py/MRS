@@ -48,13 +48,8 @@ from Flask_MRS.utils import UpdateMRSRating
 #db.session.commit()
 
 
-list = List.query.get(1)
-movie = Movie.query.get('Inception')
-list.movies.append(movie)
-db.session.commit()
-for movie in list.movies:
-    print(movie.id)
-
+user = User.query.filter_by(username='tst').first()
+print(user.lists[6].movies)
 
 
 

@@ -18,8 +18,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
-    lists = db.relationship('List', backref='user', lazy=True)
 
+    child = db.relationship('List', backref='user', lazy=True)
     parent = db.relationship('Ratings', backref='user', lazy=True)
 
     def __repr__(self):
@@ -30,7 +30,7 @@ class Movie(db.Model):
     id = db.Column(db.String(30), primary_key=True)
     MRSRating = db.Column(db.Float, nullable=True, unique=False)
 
-    parant = db.relationship('Ratings', backref='movie', lazy=True )
+    parant = db.relationship('Ratings', backref='movie', lazy=True)
 
     movies = db.relationship('List', secondary=Lists, lazy='subquery',
                              backref=db.backref('movies', lazy=True))
@@ -54,6 +54,7 @@ class List(db.Model):
     name = db.Column(db.String(20), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
+    parant = db.relationship('User', backref='lists', lazy=True)
 
     def __repr__(self):
         return f"List('{self.id}', '{self.name}', '{self.user_id}')"

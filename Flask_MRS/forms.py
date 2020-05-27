@@ -49,8 +49,7 @@ class ListForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     submit = SubmitField('Next')
     def validate_name(self,name):
-        list = List.query.filter_by(user_id=current_user.id, name=name.data).first()
-        print(list)
-        if list:
+        L = List.query.filter_by(name=name.data, user_id=current_user.id).first()
+        if L:
             raise ValidationError('You have a list with the same name. Please change the name')
 

@@ -11,22 +11,53 @@
         </tr>
       </thead>
       <tbody>
+      {% for list in lists %}
         <tr>
-          <th scope="row">1</th> <td>Mark</td> <td>Otto</td> <td>
-            <a class="btn btn-danger">Delete</a>
-            <a class="btn btn-primary">View</a>
+          <th scope="row">{{loop.index}}</th> <td>{{list.name}}</td> <td>{{len(list.movies)}}</td> <td>
+            <div class="form-inline">
+              <button type="button" class="btn btn-danger btn-md mr-1" data-toggle="modal" data-target="#deleteModal" onclick="passid({{list.id}})">Delete</button>
+              <form>
+                <input type="submit" class="btn btn-primary btn-md" value="More">
+              </form>
+            </div>
         </td>
         </tr>
-        <tr>
-          <th scope="row">2</th> <td>Jacob</td> <td>Thornton</td> <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th> <td>Larry</td> <td>the Bird</td> <td>@twitter</td>
-        </tr>
+      {% endfor %}
       </tbody>
     </table>
 
     <a class="btn btn-outline-dark md-btn" href="{{url_for('new_list')}}">Create New List</a>
 </div>
+<!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalTitle">Delete List?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <p>If you delete it all the movies you stored will be gone. Are you sure?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form action="" method="POST" id="delete_post">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+<script>
+
+  function passid(id) {
+    form = document.getElementById('delete_post');
+    id = id.toString();
+    form.action="/DeleteList/"+id;
+  }
+
+</script>
 
 {% endblock %}

@@ -106,7 +106,8 @@ def movie_page(id):
 @app.route('/Lists')
 @login_required
 def list():
-    return render_template('list.html')
+    lists = current_user.lists
+    return render_template('list.html', lists=lists, len=len )
 
 
 @app.route('/new_list', methods=['POST', 'GET'])
@@ -155,6 +156,18 @@ def search():
             _ = 'nothing'
     return render_template('search.html', movies=movies, error=error)
 
+@app.route('/DeleteList/<int:id>', methods=['POST', 'GET'])
+@login_required
+def delete_list(id):
+    list = List.query.get_or_404(id)
+    if list.user != current_user:
+        abort(403)
+    else:
+        db.session.delete(list)
+        db.session.commit()
+        flash(list.name + ' is deleted successfully.', 'success')
+        return redirect(url_for('list'))
+    return render_template('list.html', list=list)
 
 @app.route('/aaa')
 @login_required
