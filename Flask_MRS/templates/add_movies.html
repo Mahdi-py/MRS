@@ -1,90 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="content-section">
-        <legend class="border-bottom mb-4">Append movies to the list</legend>
-        <div class="form-inline" name="search">
-            <input type="text" name="name"
-                   class="form-control form-control-md col-9" placeholder="Search">
-            <button class="btn btn-outline-dark btn-md ml-1 " name="btn">Search</button>
+        <legend class="border-bottom mb-4"> Append movies to <strong>{{list.name}}</strong> list</legend>
+            <div class="row">
+                <input type="text" name="name"
+                       class="form-control form-control-md col-9 ml-3" placeholder="Search">
+                <button class="btn btn-outline-dark btn-md ml-1 col-2 " name="btn">Search</button>
         </div>
-        <div class="card mt-1 col-12" >
+        <div class="mt-1">
             <ul class="list-group" id="list">
-                <li class="list-group-item"><img height="50" width="50" src="../static/inception.jpg" class="img-thumbnail mr-2">Inception <a href="#" class="btn btn-outline-dark  btn-sm float-center">Add</a> </li>
-                <li class="list-group-item"><img height="50" width="50" src="../static/inception.jpg" class="img-thumbnail mr-2">Darknight <a href="#" class="btn btn-outline-dark  btn-sm float-center">Add</a> </li>
-                <li class="list-group-item"><img height="50" width="50" src="../static/inception.jpg" class="img-thumbnail mr-2">Last of us <a href="#" class="btn btn-outline-dark btn-sm float-center">Add</a> </li>
+                <div class="text-muted">Please type something to search.</div>
             </ul>
         </div>
     </div>
-    <!--<script src="../static/search.js"></script>-->
-    <script>
-        var list = document.getElementById('list')
-var input = document.getElementsByName('name')[0];
-var btn = document.getElementsByName('btn')[0];
-btn.addEventListener('click', function () {
-    const value = input.value;
-    if (value && value.trim().length > 0 ){
-        getMovies(value);
-    } else {
-        clearList()
-    }
 
-});
+{% include 'searchscript.html' %}
 
-function getMovies(name) {
-    fetch("https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/"+name, {
-    "method": "GET",
-    "headers": {
-    	"x-rapidapi-host": "imdb-internet-movie-database-unofficial.p.rapidapi.com",
-    	"x-rapidapi-key": "ae2f772566msh53a562e84ed2f81p1d96fajsne0717a4d8a5d"
-    }
-    })
-    .then(res => res.json())
-    .then( data => {
-        if(data.message){
-        console.log('i am in the then');
-        setNoResults(); }
-        else {
-            console.log(data.titles)
-            addlist(data.titles)
-        }
-    })
-
-
-    }
-function addlist(group) {
-    clearList();
-    for(const movie of group){
-        const item=document.createElement('li');
-        item.classList.add('list-group-item');
-        const img = document.createElement('img');
-        img.className='img-thumbnail mr-2';
-        img.src=movie.image;
-        img.height=50;
-        img.width=50;
-        item.appendChild(img);
-        const text= document.createTextNode(movie.title);
-        item.appendChild(text);
-        const btn = document.createElement('a');
-        btn.className='btn btn-outline-dark btn-sm float-right';
-        const Add = document.createTextNode('Add');
-        btn.appendChild(Add);
-        item.appendChild(btn);
-        list.appendChild(item);
-    }
-    if(group.length===0) setNoResults()
-}
-function clearList() {
-    while (list.firstChild) {
-        list.removeChild(list.firstChild);
-    }
-}
-function setNoResults() {
-    clearList()
-    const item=document.createElement('li');
-        item.classList.add('list-group-item');
-        const text= document.createTextNode('No results found');
-        item.appendChild(text);
-        list.appendChild(item);
-}
-    </script>
 {% endblock %}

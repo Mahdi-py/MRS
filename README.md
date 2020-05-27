@@ -22,3 +22,4 @@
 * Bootstrap
 * Javascript
 * Json
+* Ajax

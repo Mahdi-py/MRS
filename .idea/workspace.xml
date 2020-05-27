@@ -39,6 +39,13 @@
         <item name="mrs@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="mrs: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="contains: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="mrs@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="mrs: schema" type="76f4a085:MysqlImplModel$Schema" />
         <item name="list: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
     </expand>
@@ -49,8 +56,8 @@
       <list>
         <option value="CSS File" />
         <option value="Python Script" />
-        <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -69,11 +76,16 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Flask1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../FlaskBlog" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="Python.app">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Dobler\PycharmProjects\MRS\Flask_MRS\templates" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.test">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="MRS" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -153,7 +165,17 @@
       <list>
         <serviceView>
           <treeState>
-            <expand />
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:mrs@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:mrs@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@677e9313" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
             <select />
           </treeState>
         </serviceView>
@@ -174,7 +196,7 @@
       <workItem from="1589522736504" duration="1599000" />
       <workItem from="1589524384607" duration="116000" />
       <workItem from="1589524547036" duration="75948000" />
-      <workItem from="1590241600288" duration="24029000" />
+      <workItem from="1590241600288" duration="60048000" />
     </task>
     <servers />
   </component>
@@ -182,34 +204,34 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="552" y="179" key="#Inspections" timestamp="1589771320624">
+    <state x="552" y="179" key="#Inspections" timestamp="1590325589417">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="179" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1589771320624" />
+    <state x="552" y="179" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1590325589417" />
     <state x="72" y="183" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589579228283">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="72" y="183" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1589579228283" />
-    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1589527886679">
+    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1590500968125">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1589527886679" />
-    <state width="1877" height="232" key="GridCell.Tab.0.bottom" timestamp="1590271443431">
+    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590500968125" />
+    <state width="1195" height="132" key="GridCell.Tab.0.bottom" timestamp="1590529536080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="232" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590271443431" />
-    <state width="1877" height="232" key="GridCell.Tab.0.center" timestamp="1590271443431">
+    <state width="1195" height="132" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590529536080" />
+    <state width="1195" height="132" key="GridCell.Tab.0.center" timestamp="1590529536080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="232" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590271443431" />
-    <state width="1877" height="232" key="GridCell.Tab.0.left" timestamp="1590271443431">
+    <state width="1195" height="132" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590529536080" />
+    <state width="1195" height="132" key="GridCell.Tab.0.left" timestamp="1590529536080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="232" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590271443431" />
-    <state width="1877" height="232" key="GridCell.Tab.0.right" timestamp="1590271443431">
+    <state width="1195" height="132" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590529536080" />
+    <state width="1195" height="132" key="GridCell.Tab.0.right" timestamp="1590529536080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="232" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590271443431" />
+    <state width="1195" height="132" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590529536080" />
     <state x="166" y="162" key="SettingsEditor" timestamp="1589414574272">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -222,14 +244,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="0" y="0" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590241606448" />
-    <state x="143" y="230" width="672" height="678" key="search.everywhere.popup" timestamp="1589577108613">
+    <state x="143" y="230" width="672" height="678" key="search.everywhere.popup" timestamp="1590506800366">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="143" y="230" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1589577108613" />
+    <state x="143" y="230" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1590506800366" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/MRS$test.coverage" NAME="test Coverage Results" MODIFIED="1589881898493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Flask_MRS" />
+    <SUITE FILE_PATH="coverage/MRS$test.coverage" NAME="test Coverage Results" MODIFIED="1590529076544" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Flask_MRS" />
     <SUITE FILE_PATH="coverage/MRS$utils.coverage" NAME="utils Coverage Results" MODIFIED="1589524840435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MRS$app.coverage" NAME="app Coverage Results" MODIFIED="1590248037904" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MRS$app.coverage" NAME="app Coverage Results" MODIFIED="1590529536070" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

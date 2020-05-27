@@ -1,0 +1,106 @@
+{% block script %}
+<script>
+function post(id, movie_name) {
+    const data = { movie_id: id };
+    fetch("{{url_for('add_movie', list_id=list.id)}}",
+        {method: 'POST',
+            body: JSON.stringify(data),
+            cache: 'no-cache',
+            headers: new Headers({
+                'content-type':'application/json'
+            })
+        })
+        .then(res => {
+            if(res.status!==200){
+                console.log(res.status);
+            }else {
+
+            } return res.json()
+        })
+        .then(data=>{console.log('Success: ',data);
+            if (data.message === 'OK') {
+                flash(movie_name+" is added to your {{ list.name }} list.",'success')
+            }
+            else if(data.message==='exist'){
+                flash(movie_name+" is already in your {{list.name}} list.",'danger')
+            }
+        })
+        .catch(err => {console.log('Error: ',err);
+                       flash('something went wrong. Please try again','danger') })
+}
+var list = document.getElementById('list');
+var input = document.getElementsByName('name')[0];
+var btn = document.getElementsByName('btn')[0];
+btn.addEventListener('click', function () {
+    const value = input.value;
+    if (value && value.trim().length > 0 ){
+        getMovies(value);
+    } else {
+        clearList()
+    }
+});
+
+function getMovies(name) {
+    fetch("https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/"+name, {
+    "method": "GET",
+    "headers": {
+    	"x-rapidapi-host": "imdb-internet-movie-database-unofficial.p.rapidapi.com",
+    	"x-rapidapi-key": "ae2f772566msh53a562e84ed2f81p1d96fajsne0717a4d8a5d"
+    }
+    })
+    .then(res => res.json())
+    .then( data => {
+        if(data.message){
+        setNoResults(); }
+        else {
+            console.log(data.titles);
+            addlist(data.titles)
+        }
+    })
+
+
+    }
+function addlist(group) {
+    clearList();
+    for(const movie of group){
+        const item=document.createElement('li');
+        item.classList.add('list-group-item');
+        item.innerHTML += "<img height=\"50\" width=\"50\" src=\""+ movie.image+"\" class=\"img-thumbnail mr-2\">"+movie.title+"<button " +
+            " class=\"btn btn-outline-dark  btn-sm float-right\" onclick=\"post('"+ movie.id+"','"+movie.title+"')\">Add</button>"+
+            "<a href=\"/movies/"+movie.id+"\" class=\"btn btn-info btn-sm float-right mr-1\">Info</a>";
+        list.appendChild(item);
+    }
+    if(group.length===0) setNoResults()
+}
+function clearList() {
+    while (list.firstChild) {
+        list.removeChild(list.firstChild);
+    }
+}
+function setNoResults() {
+    clearList();
+    const item=document.createElement('li');
+        item.classList.add('list-group-item');
+        const text= document.createTextNode('No results found');
+        item.appendChild(text);
+        list.appendChild(item);
+}
+
+function flash(message,state) {
+    clearflash();
+    const div = document.getElementById('flash');
+    const item=document.createElement('div');
+    item.className="alert alert-"+state;
+    const text = document.createTextNode(message);
+    item.appendChild(text);
+    div.insertBefore(item, div.firstChild);
+}
+function clearflash() {
+    const div = document.getElementById('flash');
+    while (div.firstChild && div.firstElementChild.className.includes('alert')) {
+        div.removeChild(div.firstChild);
+    }
+}
+
+</script>
+{%endblock%}

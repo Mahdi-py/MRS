@@ -54,3 +54,9 @@ class MovieRatings():
         self.IMDbRating=IMDbRating
     def __repr__(self):
         return 'Ratings( UserRating= '+str(self.UserRating)+", MRS Rating= "+str(self.MRSRating)+", IMDb Rating= "+str(self.IMDbRating)
+
+def add_movie_to_db(id):
+    if not Movie.query.filter_by(id=id).first():
+        new_movie = Movie(id=id)
+        db.session.add(new_movie)
+        db.session.commit()

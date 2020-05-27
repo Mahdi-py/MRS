@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="../static/main.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
     {% if title %}
     <title>MRS - {{ title }}</title>
@@ -55,7 +55,7 @@
     <div id="particles-js">
         <main role="main" class="container" >
           <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8" id="flash">
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
                         {% for category, message in messages %}
@@ -93,7 +93,7 @@
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
     <script>
-        particlesJS.load('particles-js', '../static/particles.json',
+        particlesJS.load('particles-js', "{{ url_for('static', filename='particles.json') }}",
         function () {
             console.log('particles.json loaded ')
         })

@@ -1,10 +1,11 @@
-from flask import render_template, url_for, request, flash, redirect
+from flask import render_template, url_for, request, flash, redirect, abort, jsonify, make_response
 from Flask_MRS.forms import RegistrationForm, LoginForm, RatingForm, ListForm
 from Flask_MRS.models import Ratings
-from Flask_MRS.utils import getMovie, Search, UpdateMRSRating, MovieRatings
+from Flask_MRS.utils import getMovie, Search, UpdateMRSRating, MovieRatings, add_movie_to_db
 from Flask_MRS import app, db, bcrypt
 from Flask_MRS.models import *
 from flask_login import login_user, logout_user, current_user, login_required
+from json import dumps
 
 movie = [
     {
@@ -73,20 +74,18 @@ def logout():
     return redirect(url_for('home'))
 
 
+
 @app.route('/movies/<string:id>', methods=['GET', 'POST'])
 def movie_page(id):
     movie = getMovie(id)
     rtings = MovieRatings(UserRating=None, MRSRating=None, IMDbRating=movie['rating'])
     form = RatingForm()
-    if not Movie.query.filter_by(id=id).first():
-        new_movie = Movie(id=id)
-        db.session.add(new_movie)
-        db.session.commit()
+    add_movie_to_db(id) #This function will add the movie to the data if the is not in the database
     if current_user.is_authenticated:
         user = User.query.get(int(current_user.id))
         rtings.UserRating = Ratings.query.filter_by(movie_id=id, user_id=user.id).first()
         if rtings.UserRating is not None:
-            rtings.UserRating=rtings.UserRating.rating
+            rtings.UserRating = rtings.UserRating.rating
         rtings.MRSRating = UpdateMRSRating(id)
     if form.validate_on_submit():
         Rating = form.rate.data
@@ -115,11 +114,33 @@ def list():
 def new_list():
     form = ListForm()
     if form.validate_on_submit():
-        list = List(name=form.name.data,user_id=current_user.id)
+        list = List(name=form.name.data, user_id=current_user.id)
         db.session.add(list)
         db.session.commit()
-        return render_template('add_movies.html')
+        return redirect(url_for('add_movie', list_id=list.id))
     return render_template('new_list.html', form=form)
+
+
+@app.route('/new_list/<int:list_id>/add_movies', methods=['POST', 'GET'])
+@login_required
+def add_movie(list_id):
+    list = List.query.get_or_404(list_id)
+    if list.user != current_user:
+        abort(403)
+    if request.method == 'POST':
+        data = request.get_json()
+        movie_id=data['movie_id']
+        add_movie_to_db(movie_id) #This function will add the movie to the database if it is not in the database
+        print('here')
+        movie = Movie.query.get_or_404(movie_id)
+        for mov in list.movies:
+            if mov == movie:
+                return make_response(jsonify({"message": "exist"}), 200)
+        list.movies.append(movie)
+        db.session.commit()
+        return make_response(jsonify({"message": "OK"}), 200)
+    return render_template('add_movies.html', list=list)
+
 
 @app.route('/search', methods=['POST', 'GET'])
 def search():
@@ -134,7 +155,9 @@ def search():
             _ = 'nothing'
     return render_template('search.html', movies=movies, error=error)
 
-#delete it
-@app.route('/add_movies')
-def particles():
-    return render_template('add_movies.html')
+
+@app.route('/aaa')
+@login_required
+def aaa():
+    list = List.query.get(1)
+    return render_template('add_movies.html', list=list)

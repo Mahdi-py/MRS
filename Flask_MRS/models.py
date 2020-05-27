@@ -9,8 +9,7 @@ def load_user(user_id):
 
 Lists = db.Table('contains',
                  db.Column('List_id', db.Integer, db.ForeignKey('list.id'), primary_key=True),
-                 db.Column('movie_id', db.String(30), db.ForeignKey('movie.id'), primary_key=True)
-                 )
+                 db.Column('movie_id', db.String(30), db.ForeignKey('movie.id'), primary_key=True) )
 
 
 class User(db.Model, UserMixin):
@@ -19,7 +18,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
-    lists = db.relationship('List', backref='lists', lazy=True)
+    lists = db.relationship('List', backref='user', lazy=True)
 
     parent = db.relationship('Ratings', backref='user', lazy=True)
 
@@ -33,6 +32,8 @@ class Movie(db.Model):
 
     parant = db.relationship('Ratings', backref='movie', lazy=True )
 
+    movies = db.relationship('List', secondary=Lists, lazy='subquery',
+                             backref=db.backref('movies', lazy=True))
     def __repr__(self):
         return f"Movie('{self.id}', '{self.MRSRating}')"
 
@@ -52,8 +53,7 @@ class List(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(20), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    movies = db.relationship('Movie', secondary=Lists, lazy='subquery',
-                             backref=db.backref('movies', lazy=True))
+
 
     def __repr__(self):
         return f"List('{self.id}', '{self.name}', '{self.user_id}')"
