@@ -22,7 +22,5 @@
 * Bootstrap
 * Javascript
 * Json
-<<<<<<< HEAD
 * Ajax
-=======
->>>>>>> b5a32e14fc264606179afc4c2b520daf857c00d6
+
