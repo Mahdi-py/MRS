@@ -11,7 +11,11 @@
             <ul class="list-group" id="list">
                 <div class="text-muted">Please type something to search.</div>
             </ul>
-            <a class="btn btn-outline-dark" href="{{url_for('list')}}">Done</a>
+            {%if back %}
+                <a class="btn btn-outline-dark mt-1" href="{{url_for('list', id=list.id)}}">Done</a>
+            {% else %}
+                <a class="btn btn-outline-dark mt-1" href="{{url_for('lists')}}">Done</a>
+            {% endif %}
         </div>
     </div>
 

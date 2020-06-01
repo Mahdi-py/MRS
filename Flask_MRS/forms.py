@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, FloatField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, FloatField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from flask_login import current_user
 from Flask_MRS.models import *
@@ -52,4 +52,9 @@ class ListForm(FlaskForm):
         L = List.query.filter_by(name=name.data, user_id=current_user.id).first()
         if L:
             raise ValidationError('You have a list with the same name. Please change the name')
+
+class NoteForm(FlaskForm):
+    note = TextAreaField('Note', validators=[Length(max=1000)])
+    submit = SubmitField('Submit')
+
 

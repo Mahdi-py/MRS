@@ -1,5 +1,6 @@
 from Flask_MRS import db
 from Flask_MRS.models import *
+from Flask_MRS.utils import getMovie
 import random
 from Flask_MRS.utils import UpdateMRSRating
 #user1 = Movie(id='k23421',MRSRating=8.9)
@@ -49,7 +50,18 @@ from Flask_MRS.utils import UpdateMRSRating
 
 
 user = User.query.filter_by(username='tst').first()
-print(user.lists[6].movies)
+list = List.query.get(22)
+print(list.movies)
+movies = []
+for movie in list.movies:
+    m = getMovie(movie.movie_id)
+    m.update({'note':movie.note})
+    m.update({'list_id':movie.List_id})
+    movies.append(m)
+for movie in movies:
+    print(movie['note'])
+
+#print(user.lists[0].movies[0].note)
 
 
 

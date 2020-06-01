@@ -2,6 +2,7 @@ import requests
 import os
 from Flask_MRS.models import *
 from Flask_MRS import db
+from flask_login import current_user
 
 headers = {
     'x-rapidapi-host': os.environ.get('imdb_host'),
@@ -60,3 +61,15 @@ def add_movie_to_db(id):
         new_movie = Movie(id=id)
         db.session.add(new_movie)
         db.session.commit()
+
+def getMovies(list):
+    movies = []
+    for movie in list.movies:
+        m = getMovie(movie.movie_id)
+        Rating = Ratings.query.filter_by(movie_id=movie.movie_id, user_id=list.user.id).first()
+        m.update({'note': movie.note})
+        m.update({'list_id': movie.List_id})
+        if Rating:
+            m.update({'Rating': Rating.rating})
+        movies.append(m)
+    return movies

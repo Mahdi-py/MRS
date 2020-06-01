@@ -1,4 +1,4 @@
-from Flask_MRS import db, login_manager
+from Flask_MRS import db, login_manager, manager
 from datetime import datetime
 from flask_login import UserMixin
 
@@ -7,9 +7,17 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-Lists = db.Table('contains',
-                 db.Column('List_id', db.Integer, db.ForeignKey('list.id'), primary_key=True),
-                 db.Column('movie_id', db.String(30), db.ForeignKey('movie.id'), primary_key=True) )
+
+class lists(db.Model):
+    List_id = db.Column(db.Integer, db.ForeignKey('list.id'), primary_key=True)
+    movie_id = db.Column(db.String(30), db.ForeignKey('movie.id'), primary_key=True)
+    note = db.Column(db.String(1000), nullable=True, unique=False)
+
+    child = db.relationship('List', backref='movies', lazy=True)
+    parent = db.relationship('Movie', backref='lists', lazy=True)
+
+    def __repr__(self):
+        return f"list_movie(List='{self.List_id}', Movie='{self.movie_id}', note='{self.note}')"
 
 
 class User(db.Model, UserMixin):
@@ -31,9 +39,11 @@ class Movie(db.Model):
     MRSRating = db.Column(db.Float, nullable=True, unique=False)
 
     parant = db.relationship('Ratings', backref='movie', lazy=True)
+    child = db.relationship('lists', backref='movie', lazy=True, cascade="all,delete")
 
-    movies = db.relationship('List', secondary=Lists, lazy='subquery',
-                             backref=db.backref('movies', lazy=True))
+#    movies = db.relationship('List', secondary=lists, lazy='subquery',
+#                             backref=db.backref('movies', lazy=True))
+
     def __repr__(self):
         return f"Movie('{self.id}', '{self.MRSRating}')"
 
@@ -45,6 +55,7 @@ class Ratings(db.Model):
 
     child = db.relationship('Movie', backref='ratings', lazy=True)
     parent = db.relationship('User', backref='ratings', lazy=True)
+
     def __repr__(self):
         return f"Rating('{self.user_id}', '{self.movie_id}', '{self.rating}')"
 
@@ -55,6 +66,8 @@ class List(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     parant = db.relationship('User', backref='lists', lazy=True)
+    child = db.relationship('lists', backref='list', lazy=True, cascade="all,delete")
+
 
     def __repr__(self):
         return f"List('{self.id}', '{self.name}', '{self.user_id}')"

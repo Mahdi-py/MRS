@@ -1118,181 +1118,198 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="282" parent="4" name="contains"/>
+    <table id="282" parent="4" name="alembic_version"/>
     <table id="283" parent="4" name="list"/>
-    <table id="284" parent="4" name="movie"/>
-    <table id="285" parent="4" name="ratings"/>
-    <table id="286" parent="4" name="user"/>
-    <column id="287" parent="282" name="List_id">
+    <table id="284" parent="4" name="lists"/>
+    <table id="285" parent="4" name="movie"/>
+    <table id="286" parent="4" name="ratings"/>
+    <table id="287" parent="4" name="user"/>
+    <column id="288" parent="282" name="version_num">
+      <Position>1</Position>
+      <DataType>varchar(32)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="289" parent="282" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>version_num</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="290" parent="283" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="291" parent="283" name="name">
+      <Position>2</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="292" parent="283" name="user_id">
+      <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="293" parent="283" name="user_id">
+      <ColNames>user_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="294" parent="283" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="295" parent="283" name="list_ibfk_1">
+      <ColNames>user_id</ColNames>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="296" parent="284" name="List_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="288" parent="282" name="movie_id">
+    <column id="297" parent="284" name="movie_id">
       <Position>2</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="289" parent="282" name="movie_id">
+    <column id="298" parent="284" name="note">
+      <Position>3</Position>
+      <DataType>varchar(1000)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="299" parent="284" name="movie_id">
       <ColNames>movie_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="290" parent="282" name="PRIMARY">
+    <key id="300" parent="284" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>List_id
 movie_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="291" parent="282" name="contains_ibfk_1">
+    <foreign-key id="301" parent="284" name="lists_ibfk_1">
       <ColNames>List_id</ColNames>
       <RefTableName>list</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="292" parent="282" name="contains_ibfk_2">
+    <foreign-key id="302" parent="284" name="lists_ibfk_2">
       <ColNames>movie_id</ColNames>
       <RefTableName>movie</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="293" parent="283" name="id">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="294" parent="283" name="name">
-      <Position>2</Position>
-      <DataType>varchar(20)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="295" parent="283" name="user_id">
-      <Position>3</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="296" parent="283" name="user_id">
-      <ColNames>user_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="297" parent="283" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="298" parent="283" name="list_ibfk_1">
-      <ColNames>user_id</ColNames>
-      <RefTableName>user</RefTableName>
-      <RefColNames>id</RefColNames>
-    </foreign-key>
-    <column id="299" parent="284" name="id">
+    <column id="303" parent="285" name="id">
       <Position>1</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="300" parent="284" name="MRSRating">
+    <column id="304" parent="285" name="MRSRating">
       <Position>2</Position>
       <DataType>float|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="301" parent="284" name="PRIMARY">
+    <key id="305" parent="285" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="302" parent="285" name="user_id">
+    <column id="306" parent="286" name="user_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="303" parent="285" name="movie_id">
+    <column id="307" parent="286" name="movie_id">
       <Position>2</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="304" parent="285" name="rating">
+    <column id="308" parent="286" name="rating">
       <Position>3</Position>
       <DataType>float|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="305" parent="285" name="movie_id">
+    <index id="309" parent="286" name="movie_id">
       <ColNames>movie_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="306" parent="285" name="PRIMARY">
+    <key id="310" parent="286" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>user_id
 movie_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="307" parent="285" name="ratings_ibfk_1">
+    <foreign-key id="311" parent="286" name="ratings_ibfk_1">
       <ColNames>user_id</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="308" parent="285" name="ratings_ibfk_2">
+    <foreign-key id="312" parent="286" name="ratings_ibfk_2">
       <ColNames>movie_id</ColNames>
       <RefTableName>movie</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="309" parent="286" name="id">
+    <column id="313" parent="287" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="310" parent="286" name="username">
+    <column id="314" parent="287" name="username">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="311" parent="286" name="email">
+    <column id="315" parent="287" name="email">
       <Position>3</Position>
       <DataType>varchar(120)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="312" parent="286" name="image_file">
+    <column id="316" parent="287" name="image_file">
       <Position>4</Position>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="313" parent="286" name="password">
+    <column id="317" parent="287" name="password">
       <Position>5</Position>
       <DataType>varchar(60)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="314" parent="286" name="username">
+    <index id="318" parent="287" name="username">
       <ColNames>username</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="315" parent="286" name="email">
+    <index id="319" parent="287" name="email">
       <ColNames>email</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="316" parent="286" name="PRIMARY">
+    <key id="320" parent="287" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="317" parent="286" name="username">
+    <key id="321" parent="287" name="username">
       <ColNames>username</ColNames>
       <UnderlyingIndexName>username</UnderlyingIndexName>
     </key>
-    <key id="318" parent="286" name="email">
+    <key id="322" parent="287" name="email">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>email</UnderlyingIndexName>
     </key>
