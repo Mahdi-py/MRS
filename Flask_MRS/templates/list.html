@@ -37,7 +37,7 @@
                     <form action="{{url_for('movie_page', id=movie.id, list_id=list_id)}}" method="post">
                         <input type="submit" class="btn btn-outline-info btn-sm" value="More">
                     </form>
-                    <form action="{{url_for('delete_movie_from_list', list_id=list_id, movie_id=movie.id)}}" method="post">
+                    <form action="{{url_for('delete_movie_from_list', list_id=list_id, movie_id=movie.id)}}" method="post  ">
                         <input type="submit" class="btn btn-outline-danger btn-sm mt-1" value="Delete">
                     </form>
                 </td>

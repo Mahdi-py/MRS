@@ -80,4 +80,34 @@
             </div>
         </div>
     </div>
+
+    <article class="content-section">
+        {% if current_user.is_authenticated %}
+            <div class="row">
+
+                    <form class="col-12 mt-2 media" method="post">
+                        <img class="rounded-circle account-img" src="{{ url_for('static',filename='profile_pics/' + 'default.jpg') }}" style="width: 60px; height: 60px;">
+                        {{ commentform.hidden_tag() }} <!--For Protection-->
+                        {{ commentform.comment(class= "form-control form-control-sm") }}
+
+
+                    </form>
+                    <div class="col-12">
+
+                    {{ commentform.submit(class="btn btn-outline-dark btn-sm ml-2 float-right ") }}
+                    </div>
+        {% endif %}
+
+            <div class="col-12 media mt-2">
+                <img class="rounded-circle account-img" src="{{ url_for('static',filename='profile_pics/' + 'default.jpg') }}" style="width: 60px; height: 60px;">
+                <div class="media-body">
+                    <div class="article-metadata">
+                      <a class="mr-2" href="#">Mahdi</a>
+                      <small class="text-muted">2020/12/31</small>
+                    </div>
+                <p class="article-content">The end of the world is very close. Please stay home so that you can prevent it.</p>
+                </div>
+            </div>
+        </div>
+    </article>
 {% endblock %}

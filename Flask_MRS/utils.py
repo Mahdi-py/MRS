@@ -1,9 +1,11 @@
+import secrets
+from PIL import Image
 import requests
 import os
 from Flask_MRS.models import *
 from Flask_MRS import db
 from flask_login import current_user
-
+from flask import current_app
 headers = {
     'x-rapidapi-host': os.environ.get('imdb_host'),
     'x-rapidapi-key': os.environ.get('imdb_key')
@@ -73,3 +75,22 @@ def getMovies(list):
             m.update({'Rating': Rating.rating})
         movies.append(m)
     return movies
+
+def save_picture(form_picture):
+    if current_user.image_file != 'default.jpg':
+        file = current_user.image_file
+        path = os.path.join(current_app.root_path, 'static/profile_pics', file)
+        os.remove(path)
+    _, f_ext = os.path.splitext(form_picture.filename)  # the _ is a variable which we through and we will not use it
+    picture_fn = current_user.username + f_ext
+    picture_path = os.path.join(current_app.root_path, 'static/profile_pics', picture_fn)
+
+    # resizing the image so that it does not take much space in the server
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+    return picture_fn
+
+
+

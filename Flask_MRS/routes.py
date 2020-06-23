@@ -1,6 +1,6 @@
 from flask import render_template, url_for, request, flash, redirect, abort, jsonify, make_response
-from Flask_MRS.forms import RegistrationForm, LoginForm, RatingForm, ListForm, NoteForm
-from Flask_MRS.utils import getMovie, Search, UpdateMRSRating, MovieRatings, add_movie_to_db, getMovies
+from Flask_MRS.forms import RegistrationForm, LoginForm, RatingForm, ListForm, NoteForm, UpdateAccountForm, CommentForm
+from Flask_MRS.utils import getMovie, Search, UpdateMRSRating, MovieRatings, add_movie_to_db, getMovies, save_picture
 from Flask_MRS import app, db, bcrypt
 from Flask_MRS.models import *
 from Flask_MRS.models import lists as list_movie
@@ -81,6 +81,7 @@ def movie_page(id, list_id=None):
     rtings = MovieRatings(UserRating=None, MRSRating=None, IMDbRating=movie['rating'])
     form = RatingForm()
     noteform = NoteForm()
+    commentform = CommentForm()
     list=None
     add_movie_to_db(id)  # This function will add the movie to the data if the is not in the database
     if current_user.is_authenticated:
@@ -110,7 +111,8 @@ def movie_page(id, list_id=None):
             rtings.UserRating = round(float(Rating), 2)
 
     return render_template('movie_page.html', movie=movie, Rating=rtings.UserRating,
-                           MRSRating=rtings.MRSRating, form=form, list=list, noteform=noteform)
+                           MRSRating=rtings.MRSRating, form=form, list=list, noteform=noteform,
+                           commentform=commentform)
 
 @app.route('/noteform/<string:movie_id>/<int:list_id>', methods=['post','get'])
 @login_required
@@ -221,3 +223,26 @@ def delete_movie_from_list(list_id,movie_id):
     db.session.commit()
     flash('Item deleted successfully','success')
     return redirect(url_for('list', id=list_id))
+
+
+
+@app.route("/account", methods=['POST', 'GET'])
+@login_required
+def account():
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('account.html', title='Account',
+                           image_file=image_file, form=form)

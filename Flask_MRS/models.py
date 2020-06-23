@@ -20,6 +20,19 @@ class lists(db.Model):
         return f"list_movie(List='{self.List_id}', Movie='{self.movie_id}', note='{self.note}')"
 
 
+class Comment(db.Model):
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    movie_id = db.Column(db.String(30), db.ForeignKey('movie.id'), primary_key=True)
+    comment = db.Column(db.String(2000), nullable=True, unique=False)
+    date_commented = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    child = db.relationship('User', backref='comments', lazy=True)
+    parent = db.relationship('Movie', backref='comments', lazy=True)
+
+    def __repr__(self):
+        return f"Comment(User='{self.user_id}', Movie='{self.movie_id}', comment='{self.comment}')"
+
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
@@ -40,9 +53,6 @@ class Movie(db.Model):
 
     parant = db.relationship('Ratings', backref='movie', lazy=True)
     child = db.relationship('lists', backref='movie', lazy=True, cascade="all,delete")
-
-#    movies = db.relationship('List', secondary=lists, lazy='subquery',
-#                             backref=db.backref('movies', lazy=True))
 
     def __repr__(self):
         return f"Movie('{self.id}', '{self.MRSRating}')"
@@ -67,7 +77,6 @@ class List(db.Model):
 
     parant = db.relationship('User', backref='lists', lazy=True)
     child = db.relationship('lists', backref='list', lazy=True, cascade="all,delete")
-
 
     def __repr__(self):
         return f"List('{self.id}', '{self.name}', '{self.user_id}')"

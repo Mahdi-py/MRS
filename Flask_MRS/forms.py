@@ -58,3 +58,26 @@ class NoteForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
+class UpdateAccountForm(FlaskForm):
+    username = StringField('Username',
+                           validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField('Email',
+                        validators=[DataRequired(), Email()])
+    picture = FileField("Update Profile Picture", validators=[FileAllowed(['jpg', 'png'])])
+    submit = SubmitField('Update')
+
+    def validate_username(self, username):  # to check the data from the form with the data in the database
+        if current_user.username != username.data:
+            user = User.query.filter_by(username=username.data).first()
+            if user:
+                raise ValidationError('The user name is taken. Please choose a different one.')
+
+    def validate_email(self, email):
+        if current_user.email != email.data:
+            email1 = User.query.filter_by(email=email.data).first()
+            if email1:
+                raise ValidationError('The email is taken. Please choose a different one.')
+
+class CommentForm(FlaskForm):
+    comment = TextAreaField('Comment', validators=[Length(max=1000), DataRequired()])
+    submit = SubmitField('Comment')
